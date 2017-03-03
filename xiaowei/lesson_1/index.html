@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HTML</title>
+</head>
+<body>
+    <div>
+        <h2>a 标签</h2>
+        <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element" title="HTML 元素参考" target="_blank">普通</a>
+        <a href="javascript:alert('href中可调用js')">javascript alert</a>
+        <a href="#top">回到顶部</a>
+        <a href="test.txt" download="txt">download txt</a>
+        <a href="https://developer.mozilla.org/en-US/" target="_blank">
+            <img src="https://mdn.mozillademos.org/files/6851/mdn_logo.png" alt="MDN logo">
+        </a>
+        <a href="mailto:nowhere@mozilla.org">Send email to nowhere</a>
+        <a href="http://jsfiddle.net/codepo8/V6ufG/2/">使用 download 属性保存画布为PNG格式</a>
+    </div>
+
+    <hr>
+
+    <div>
+        <h2>文本</h2>
+        <p><abbr title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus ea quo explicabo repudiandae ad molestiae dolore eveniet beatae tempora neque impedit earum corrupti, sit, dolor possimus minima modi similique. Perspiciatis.">abbr</abbr>
+            <b>b</b> <cite>cite</cite> <code>code</code> <del>del</del> <dfn>dfn</dfn> <em>em</em> <i>i</i>
+            <ins>ins</ins> <mark>mark</mark> <small>small</small> <strong>strong</strong>
+            <pre>
+                function aa () {
+
+                }
+            </pre>
+        </p>
+        <dl>
+            <dt>Firefox</dt>
+            <dd>A free, open source, cross-platform, graphical web browser
+            developed by the Mozilla Corporation and hundreds of volunteers.</dd>
+        </dl>
+        <q cite="http://en.wikipedia.org/wiki/Kenny_McCormick#Cultural_impact">
+            Oh my God, you/they killed Kenny!
+        </q>
+        <p> A simple equation: <var>x</var> = <var>y</var> + 2 </p>
+    </div>
+
+    <hr>
+
+    <div>
+        <h2>表单</h2>
+        <form action="">
+            <label for="xx">label</label>
+            <input type="checkbox">
+            <input type="color">
+            <input type="date">
+            <input type="datetime">
+            <input type="datetime-local">
+            <input type="email">
+            <input type="file">
+            <input type="hidden">
+            <input type="image">
+            <input type="month">
+            <input type="number">
+            <input type="password">
+            <input type="radio">
+            <input type="reset">
+            <input type="search">
+            <input type="submit">
+            <input type="tel">
+            <input type="text">
+            <input type="time">
+            <input type="url">
+            <input type="week">
+            <input type="button">
+            <button type="button" from="xxfrom">button</button>
+            <textarea name="textarea" rows="10" cols="50">Write something here</textarea>
+            <select>
+                <optgroup label="Group 1">
+                    <option>Option 1.1</option>
+                </optgroup>
+                <optgroup label="Group 2">
+                    <option>Option 2.1</option>
+                    <option>Option 2.2</option>
+                </optgroup>
+                <optgroup label="Group 3" disabled>
+                    <option>Option 3.1</option>
+                    <option>Option 3.2</option>
+                    <option>Option 3.3</option>
+                </optgroup>
+            </select>
+            <output name="result"></output>
+            <fieldset>
+                <legend>Title</legend>
+                <input type="radio" id="radio"> <label for="radio">Click me</label>
+            </fieldset>
+        </form>
+    </div>
+
+    <hr>
+
+    <div>
+        <h2>功能型标签</h2>
+        <canvas id="canvas" width="300" height="300">
+            Sorry, your browser doesn't support the &lt;canvas&gt; element.
+        </canvas>
+        <embed type="video/quicktime" src="movie.mov" width="640" height="480">
+        <audio controls="controls">
+            Your browser does not support the <code>audio</code> element.
+            <source src="foo.wav" type="audio/wav">
+        </audio>
+        <div>
+            <img src="http://www.w3school.com.cn/i/eg_planets.jpg" border="0" usemap="#planetmap" alt="Planets">
+            <map name="planetmap" id="planetmap">
+                <area shape="circle" coords="180,139,14" href ="http://www.w3school.com.cn/example/html/venus.html" alt="Venus">
+                <area shape="circle" coords="129,161,10" href ="http://www.w3school.com.cn/example/html/mercur.html" alt="Mercury">
+                <area shape="rect" coords="0,0,110,260" href ="http://www.w3school.com.cn/example/html/sun.html" alt="Sun">
+            </map>
+        </div>
+        <iframe src="https://www.baidu.com" width="300" height="300">
+            <p>Your browser does not support iframes.</p>
+        </iframe>
+        <object width="400" height="400" data="http://www.runoob.com/try/demo_source/helloworld.swf"></object>
+        <template></template>
+        <video controls>
+           <source src="sample.ogv" type="video/ogv">
+           <track kind="captions" src="sampleCaptions.srt" srclang="en">
+        </video>
+    </div>
+
+    <hr>
+
+    <div>
+        <h2>表格</h2>
+        <table border="1">
+            <caption>这是一个表格</caption>
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Savings</th>
+                </tr>
+            </thead>
+
+            <tfoot>
+                <tr>
+                    <td>Sum</td>
+                    <td>$180</td>
+                </tr>
+            </tfoot>
+
+            <tbody>
+                <tr>
+                    <td>January</td>
+                    <td>$100</td>
+                </tr>
+                <tr>
+                    <td>February</td>
+                    <td>$80</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <div>
+        <h2>其他语义标签</h2>
+        <time>time</time>
+        <meter min="200" max="500" value="350">350 degrees</meter>
+        <progress value="70" max="100">70 %</progress>
+        <ul>
+            <li>li</li>
+            <li>li</li>
+        </ul>
+        <ol start="7">
+            <li></li>
+            <li></li>
+        </ol>
+        <address>address</address>
+        <article>article</article>
+        <aside>aside</aside>
+        <header>header</header>
+        <details>
+            <summary>Some details</summary>
+            <p>More info about the details.</p>
+        </details>
+        <figure>
+            <img src="https://developer.cdn.mozilla.net/media/img/mdn-logo-sm.png" alt="An awesome picture">
+            <figcaption>figcaption</figcaption>
+        </figure>
+        <main>main</main>
+        <nav>nav</nav>
+        <section>section</section>
+        <details>
+            <summary>Some details</summary>
+            <p>More info about the details.</p>
+        </details>
+    </div>
+
+    <hr>
+</body>
+</html>
