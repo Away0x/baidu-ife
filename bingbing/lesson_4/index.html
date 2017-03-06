@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-4</title>
+  <style>
+    #text { margin-right: 15px; }
+    .btn_group { display: inline-block; margin-right: 15px; }
+    #show { padding: 0; }
+      #show li {
+        display: inline-block;
+        width: auto;
+        height: 30px;
+        margin: 5px;
+        line-height: 30px;
+        text-align: center;
+        padding: 5px 15px;
+        list-style: none;
+        background: red;
+        color: #fff;
+        cursor: pointer;
+      }
+        #show li:hover { background: #D60000;}
+  </style>
+</head>
+<body>
+  <div id="controll">
+    <input type="text" id="text">
+    <div class="btn_group">
+      <button id="left_enter">左侧入</button>
+      <button id="right_enter">右侧入</button>
+    </div>
+    <div class="btn_group">
+      <button id="left_leave">左侧出</button>
+      <button id="right_leave">右侧出</button>
+    </div>
+  </div>
+
+  <ul id="show"></ul>
+
+  <script>
+    // BEGIN ----------------------------- utils -----------------------------
+    // 获取 dom
+    function $ (selector) {
+      var id = selector.indexOf('#')
+
+      return id !== -1
+        ? document.querySelector(selector)    // dom
+        : document.querySelectorAll(selector) // [dom, dom ...]
+    }
+
+    // 绑定 click 事件
+    function bindClick (selector, bindFn) {
+      var dom = $(selector)
+      dom.addEventListener('click', function (ev) {
+        bindFn && bindFn.call(dom, ev)
+      })
+    }
+    // 类型检测
+    function isType (type) {
+      return function (target) {
+        return toString.call(target) === '[object ' + type + ']';
+      }
+    }
+    var is_array  = isType('Array')
+    var is_number = isType('Number')
+    // 获取 input 中输入的数字
+    function getInputValueNum (inputSelector) {
+      return function () {
+        var
+          $input = $(inputSelector),
+          num = parseInt($input.value)
+
+        $input.value = ''
+        if ( ! is_number(num) || isNaN(num)) {
+          alert('请输入一个数字')
+          return false
+        }
+        return num
+      }
+    }
+    // END ----------------------------- utils -----------------------------
+
+    // BEGIN ----------------------------- Queue Class -----------------------------
+    var Queue = (function () {
+      function Queue (wrapSelector) {
+        this._Indexmark = 'data-index' // 占位属性
+        this._$wrap = $(wrapSelector)  // 队列容器
+        this._arr   = []               // 队列
+        this._index = 0                // 队列下标
+      }
+      // 生成 li : Number -> return dom(html list)
+      Queue.prototype._renderLi = function (num, index) {
+        if ( ! index) index = this._index + 1
+        var $li = document.createElement('li')
+        $li.setAttribute(this._Indexmark, index)
+        $li.textContent = num
+        return $li
+      }
+      // 更新 index
+      Queue.prototype._reIndex = function () {
+        this._arr.forEach(($el, index) => $el.setAttribute(this._Indexmark, index))
+        this._index = this._arr.length
+      }
+      // right enter
+      Queue.prototype.push = function (num) {
+        var $newLi = this._renderLi(num)
+        this._arr.push($newLi)
+        this._$wrap.appendChild($newLi)
+        this._reIndex()
+      }
+      // right leave
+      Queue.prototype.pop = function () {
+        if (this._arr.length === 0) return false
+        var $last = this._arr[ this._arr.length - 1 ]
+
+        $last.remove()
+        this._arr.pop()
+        this._reIndex()
+        return true
+      }
+      // left leave
+      Queue.prototype.shift = function () {
+        if (this._arr.length === 0) return false
+        var $first = this._arr[0]
+
+        $first.remove()
+        this._arr.shift()
+        this._reIndex()
+        return true
+      }
+      // left enter
+      Queue.prototype.unshift = function (num) {
+        var
+          $newLi = this._renderLi(num),
+          $first = this._$wrap.firstChild
+
+        this._arr.unshift($newLi)
+        this._$wrap.insertBefore($newLi, $first)
+        this._reIndex()
+      }
+      // 删除指定 index 的队列元素 : dom(点击的元素)
+      Queue.prototype.remove = function ($curLiDom) {
+        var index = $curLiDom.getAttribute(this._Indexmark)
+
+        this._arr[index].remove()
+        this._arr.splice(index, 1)
+        this._reIndex()
+      }
+      // 生成初始队列
+      Queue.prototype.init    = function (arr) {
+        if ( ! is_array(arr)) return
+        if ( ! arr.length > 0) return
+
+        this._arr = arr.map(a => parseInt(a))
+          .filter(n => is_number(n))
+          .map((n, index) => this._renderLi(n, index))
+
+        this._arr.forEach($el => this._$wrap.appendChild($el))
+        this._index = this._arr.length
+      }
+
+      return Queue
+    }())
+    // END ----------------------------- Queue Class -----------------------------
+
+
+    // 启动
+    window.onload = function () {
+      var
+        liQueue = new Queue('#show'),
+        getNum  = getInputValueNum('#text') // 获取输入的数字
+
+      // 生成初始队列
+      liQueue.init([1,2,3])
+
+      // 事件函数
+      // left enter
+      function bindLeftEnterEvent () {
+        var num = getNum()
+        if (num) liQueue.unshift(num)
+      }
+      // right enter
+      function bindRightEnterEvent () {
+        var num = getNum()
+        if (num) liQueue.push(num)
+      }
+      // left leave
+      function bindLeftLeaveEvent () {
+        if ( ! liQueue.shift())
+          alert('没有可删除的元素了')
+      }
+      // right leave
+      function bindRightLeaveEvent () {
+        if ( ! liQueue.pop())
+          alert('没有可删除的元素了')
+      }
+
+      function bindLiLeaveEvent (ev) {
+        if ( ! ev.target || ! (ev.target.nodeName === 'LI')) return
+        liQueue.remove(ev.target)
+      }
+
+      // 绑定事件
+      bindClick('#left_enter',  bindLeftEnterEvent)
+      bindClick('#right_enter', bindRightEnterEvent)
+      bindClick('#left_leave',  bindLeftLeaveEvent)
+      bindClick('#right_leave', bindRightLeaveEvent)
+      bindClick('#show',        bindLiLeaveEvent)
+    }
+  </script>
+</body>
+</html>
