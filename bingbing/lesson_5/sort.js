@@ -1,15 +1,11 @@
-// 插入排序
-const insert_sort = list => {
-  const count = list.length
+const sortType = (type, a, b) => type ? a > b : a < b
 
-}
 // 冒泡排序 : type(true: p, false: r) ; sortFn(排序时的回调)
 // sortEndFn(排序结束时的回调)
 const bubbleSort = (arr, type=true, sortFn, sortEndFn) => {
   const
     list = copyArray(arr),
-    len = list.length,
-    sortType = (a, b) => type ? a > b : a < b
+    len = list.length
 
   if (len === 1) return list
 
@@ -19,7 +15,7 @@ const bubbleSort = (arr, type=true, sortFn, sortEndFn) => {
         a = list[j],
         b = list[j + 1]
 
-      if ( sortType(a, b) ) {
+      if ( sortType(type, a, b) ) {
         [list[j], list[j + 1]] = [b, a]
         sortFn && sortFn(list, a, b)
       }
@@ -29,24 +25,28 @@ const bubbleSort = (arr, type=true, sortFn, sortEndFn) => {
   return list
 }
 
-// 选择排序
 
 // 快速排序
-// const quickSort = (arr) => {
-//   const
-//     list = copyArray(arr),
-// }
-// function quickSort(arr) {
-//     if (arr.length <= 1) return arr // 递归停止条件
-//     // 选取基准值
-//     var pivotIndex = Math.ceil(arr.length / 2)
-//     var pivot = arr.splice(pivotIndex, 1)[0] // 基准值
-//     var left = [], right = []
-//     // 如果大于基准值，移到数组right中；小于基准的值，移到数组left中
-//     for (var i = 0; i < arr.length; i++)
-//         (arr[i] > pivot) ? right.push(arr[i]) : left.push(arr[i])
-//     return quickSort(left).concat([pivot], quickSort(right))
-// }
+const quickSort = (arr, type=true, sortFn, sortEndFn) => {
+  const list = copyArray(arr), len = list.length
+  if (len <= 1) { // 递归停止条件
+    sortEndFn && sortEndFn(list)
+    return list
+  }
+  // 选取基准值
+  const
+    pivotIndex = Math.ceil(list.length / 2),
+    pivot      = list.splice(pivotIndex, 1)[0] // 基准值
+  let left = [], right = []
+
+  // 如果大于基准值，移到数组right中；小于基准的值，移到数组left中
+  for (let i = 0; i < len; i++)
+    (list[i] > pivot) ? right.push(list[i]) : left.push(list[i])
+    sortType(type, list[i], pivot) ? right.push(list[i]) : left.push(list[i])
+
+  return quickSort(left).concat([pivot], quickSort(right))
+}
+
 // 堆排序
 
 // 希尔排序
@@ -55,10 +55,6 @@ const bubbleSort = (arr, type=true, sortFn, sortEndFn) => {
 
 // 基数排序
 
+// 选择排序
 
-function swapDiv(elm) {
-    var previous = findPrevious(elm);
-    if (previous) {
-        elm.parentNode.insertBefore(elm, previous);
-    }
-}
+// 插入排序

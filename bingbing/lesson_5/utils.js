@@ -17,9 +17,12 @@ const uniqueArr = arr => {
   let res = [], json = {}, len = arr.length
 
   for (let i = 0; i< len; i++) {
-    const item = arr[i]
+    const
+      $el  = arr[i],
+      item = $el.getAttribute('title')
+
     if ( ! json[item]) {
-      res.push(item)
+      res.push($el)
       json[item] = 1
     }
   }

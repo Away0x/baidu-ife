@@ -7,6 +7,7 @@
 </head>
 <body>
   <div id="controll">
+    <!-- <h4>由于排序动画暂有bug,所以不建议输入已有的数字</h4> -->
     <input type="text" id="text">
     <div class="btn_group">
       <button id="left_enter">左侧入</button>
@@ -24,9 +25,7 @@
 
   <ul id="show"></ul>
 
-  <ul id="step">
-    <li>请打开控制台查看排序步骤</li>
-  </ul>
+  <ul id="step"></ul>
 
   <script src="utils.js"></script>
   <script src="sort.js"></script>
@@ -34,22 +33,23 @@
   <script>
   // 启动
   window.onload = function () {
-    window.step = []
+    window.step = [] // 排序的步骤
     const
+      disabledBtn = type => [].forEach.call(document.querySelectorAll('button'), $btn => $btn.disabled = type)
       $show = $('#show'),
       $step = $('#step'),
-      initStep = () => {
-        $step.innerHTML = ''
+      initStep = $btn => {
+        disabledBtn(true)
+        $step.innerHTML = '<li>排序开始</li>'
         step = []
       },
       getNum  = getInputValueNum('#text'), // 获取输入的数字
       setActiveClass = (activeTitle=[]) => {
         const
-          $li = $show.children,
+          $li  = uniqueArr($show.children), // 去个重(实际上，这里是有问题的，暂无好的解决方法)
           noRe = []
 
-        window.aaa = $li
-        ;[].forEach.call($li, $item => {
+        ;[].forEach.call($li, ($item, index) => {
           const title = parseInt($item.title)
 
           $item.className = (activeTitle.indexOf(title) !== -1) ? 'active' : ''
@@ -71,11 +71,12 @@
           step.push({text, list: copyList, change: [a, b]})
         },
         sortEndCb (endList) {
+          if (step.length === 0) return
           let count = 0
           const timer = setInterval(() => {
             const
               curStep = step[count]
-              $li     = createElm('li', curStep.text)
+              $li     = createElm('li', `${count + 1} => ${curStep.text}`)
 
             liQueue.init(curStep.list)
             setActiveClass(curStep.change)
@@ -83,15 +84,17 @@
             count = count + 1
 
             if (count === step.length) {
+              $step.appendChild(createElm('li', '排序结束'))
               clearInterval(timer)
               setActiveClass()
+              disabledBtn(false)
             }
           }, 1000)
         }
       })
 
     // 生成初始队列
-    liQueue.init([50, 61, 32, 12, 11, 55, 78, 99])
+    liQueue.init([50, 11, 15, 12, 13, 55, 78, 99])
 
     // 事件函数
     // left enter
@@ -117,14 +120,14 @@
     // sort p
     function bindSortPEvent () {
       console.log('冒泡排序(正)开始')
-      initStep()
+      initStep(this)
       liQueue.sort(true)
       console.log('冒泡排序(正)结束')
     }
     // sort r
     function bindSortREvent () {
       console.log('冒泡排序(逆)开始')
-      initStep()
+      initStep(this)
       liQueue.sort(false)
       console.log('冒泡排序(逆)结束')
     }
