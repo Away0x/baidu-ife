@@ -37,7 +37,7 @@
   </div>
 
   <ul id="show"></ul>
-
+  <!-- <script src="es6.js"></script> -->
   <script>
     // BEGIN ----------------------------- utils -----------------------------
     // 获取 dom
@@ -91,7 +91,7 @@
       }
       // 生成 li : Number -> return dom(html list)
       Queue.prototype._renderLi = function (num, index) {
-        if ( ! index) index = this._index + 1
+        index = ! index ? 0 : index
         var $li = document.createElement('li')
         $li.setAttribute(this._Indexmark, index)
         $li.textContent = num
@@ -148,7 +148,7 @@
         this._reIndex()
       }
       // 生成初始队列
-      Queue.prototype.init    = function (arr) {
+      Queue.prototype.init = function (arr) {
         if ( ! is_array(arr)) return
         if ( ! arr.length > 0) return
 

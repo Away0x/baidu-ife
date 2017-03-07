@@ -1,0 +1,29 @@
+#text { margin-right: 15px; }
+.btn_group { display: inline-block; margin-right: 15px; }
+#show { padding: 0; }
+  #show li {
+    display: inline-block;
+    position: relative;
+    width: 10px;
+    margin: 5px;
+    line-height: 30px;
+    text-align: center;
+    padding: 5px 15px;
+    list-style: none;
+    background: red;
+    cursor: pointer;
+  }
+  #show li span {
+    position: absolute;
+    display: block;
+    bottom: -25px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #000;
+  }
+    #show li:hover { background: #D60000;}
+
+    * {
+        animation-duration: .2s;
+    }
