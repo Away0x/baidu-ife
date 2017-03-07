@@ -4,6 +4,29 @@ const $ = selector =>
   ? document.querySelector(selector)    // dom
   : document.querySelectorAll(selector) // [dom, dom ...]
 
+// 创建标签
+const createElm = (tag, text) => {
+  const $elm = document.createElement(tag)
+
+  $elm.textContent = text
+  return $elm
+}
+
+// 数组去重
+const uniqueArr = arr => {
+  let res = [], json = {}, len = arr.length
+
+  for (let i = 0; i< len; i++) {
+    const item = arr[i]
+    if ( ! json[item]) {
+      res.push(item)
+      json[item] = 1
+    }
+  }
+  return res
+}
+
+
 // 绑定 click 事件
 const bindClick = (selector, bindFn) => {
   const dom = $(selector)

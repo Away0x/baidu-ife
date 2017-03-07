@@ -34,27 +34,64 @@
   <script>
   // 启动
   window.onload = function () {
-    var
-      $step   = $('#step'),
-      liQueue = new Queue({
+    window.step = []
+    const
+      $show = $('#show'),
+      $step = $('#step'),
+      initStep = () => {
+        $step.innerHTML = ''
+        step = []
+      },
+      getNum  = getInputValueNum('#text'), // 获取输入的数字
+      setActiveClass = (activeTitle=[]) => {
+        const
+          $li = $show.children,
+          noRe = []
+
+        window.aaa = $li
+        ;[].forEach.call($li, $item => {
+          const title = parseInt($item.title)
+
+          $item.className = (activeTitle.indexOf(title) !== -1) ? 'active' : ''
+        })
+      }
+
+    const liQueue = new Queue({
         wrapSelector: '#show',
         maxLength: 60,
         maxLengthCb (maxNum) {
           alert(`已达最大长度${maxNum},不能再添加了！`)
         },
-        sortCb (type, a, b) {
-          const $li = document.createElement('li')
+        sortCb (type, list, a, b) {
+          const
+            copyList = copyArray(list), // 需copy下，否则会得到排好序的数组（引用类型）
+            text     =  type ? `${a} 比 ${b}大，交换位置` : `${a} 比 ${b}小，交换位置`
 
-          $li.innerHTML = type ? `${a} 比 ${b}大，交换位置` : `${a} 比 ${b}小，交换位置`
-          $step.appendChild($li)
-          console.log($li.innerHTML)
-          sleep(800) // 堵塞线程
+          console.log(text)
+          step.push({text, list: copyList, change: [a, b]})
+        },
+        sortEndCb (endList) {
+          let count = 0
+          const timer = setInterval(() => {
+            const
+              curStep = step[count]
+              $li     = createElm('li', curStep.text)
+
+            liQueue.init(curStep.list)
+            setActiveClass(curStep.change)
+            $step.appendChild($li)
+            count = count + 1
+
+            if (count === step.length) {
+              clearInterval(timer)
+              setActiveClass()
+            }
+          }, 1000)
         }
-      }),
-      getNum  = getInputValueNum('#text') // 获取输入的数字
-    window.li = liQueue
+      })
+
     // 生成初始队列
-    liQueue.init([50, 61, 32])
+    liQueue.init([50, 61, 32, 12, 11, 55, 78, 99])
 
     // 事件函数
     // left enter
@@ -80,14 +117,14 @@
     // sort p
     function bindSortPEvent () {
       console.log('冒泡排序(正)开始')
-      $step.innerHTML = ''
+      initStep()
       liQueue.sort(true)
       console.log('冒泡排序(正)结束')
     }
     // sort r
     function bindSortREvent () {
       console.log('冒泡排序(逆)开始')
-      $step.innerHTML = ''
+      initStep()
       liQueue.sort(false)
       console.log('冒泡排序(逆)结束')
     }

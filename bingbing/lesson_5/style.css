@@ -1,6 +1,8 @@
+ul { padding: 0; }
+li { list-style: none; }
+
 #text { margin-right: 15px; }
 .btn_group { display: inline-block; margin-right: 15px; }
-#show { padding: 0; }
   #show li {
     display: inline-block;
     position: relative;
@@ -9,7 +11,6 @@
     line-height: 30px;
     text-align: center;
     padding: 5px 15px;
-    list-style: none;
     background: red;
     cursor: pointer;
   }
@@ -23,6 +24,7 @@
     color: #000;
   }
     #show li:hover { background: #D60000;}
+    #show li.active { background: green;}
 
     * {
         animation-duration: .2s;

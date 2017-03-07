@@ -6,6 +6,7 @@ class Queue {
     this._maxLength   = config.maxLength   || 60   // 队列最大长度
     this._maxLengthCb = config.maxLengthCb || noop // 队列到达最大长度时的回调
     this._sortCb      = config.sortCb      || noop // 排序时每一步结束时的回调
+    this._sortEndCb   = config.sortEndCb   || noop // 排序结束时的回调
   }
   // 生成 li : Number -> return String(html li)
   _renderLi (num, index=0) {
@@ -65,8 +66,10 @@ class Queue {
   }
   // 排序 : type(true为正序，false为逆序)
   sort (type) {
-    this._arr = bubbleSort(this._arr, type, (a, b) => this._sortCb(type, a, b))
-    this.init()
+    this._arr = bubbleSort(this._arr, type,
+      (list, a, b) => this._sortCb(type, list, a, b),
+      (list) => this._sortEndCb(list)
+    )
   }
   // 生成初始队列
   init (arr) {

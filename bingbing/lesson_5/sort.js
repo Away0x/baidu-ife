@@ -4,7 +4,8 @@ const insert_sort = list => {
 
 }
 // 冒泡排序 : type(true: p, false: r) ; sortFn(排序时的回调)
-const bubbleSort = (arr, type=true, sortFn) => {
+// sortEndFn(排序结束时的回调)
+const bubbleSort = (arr, type=true, sortFn, sortEndFn) => {
   const
     list = copyArray(arr),
     len = list.length,
@@ -20,10 +21,11 @@ const bubbleSort = (arr, type=true, sortFn) => {
 
       if ( sortType(a, b) ) {
         [list[j], list[j + 1]] = [b, a]
-        sortFn && sortFn(a, b)
+        sortFn && sortFn(list, a, b)
       }
     }
   }
+  sortEndFn && sortEndFn(list)
   return list
 }
 
