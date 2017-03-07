@@ -71,8 +71,6 @@ class Queue {
   // 生成初始队列
   init (arr) {
     this._arr = arr ? arr : this._arr
-    if ( ! is_array(this._arr)) return
-    if ( ! this._arr.length > 0) return
     this._$wrap.innerHTML = this._renderList()
   }
 }
