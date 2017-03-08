@@ -15,7 +15,8 @@
     </div>
     <div class="btn_group">
       <label for="search">搜索:</label>
-      <input type="text" id="search" placeholder="目前只能搜索单个字符">
+      <input type="text" id="search" placeholder="请输入要搜索的字符">
+      <button>确定</button>
     </div>
   </div>
 
@@ -26,10 +27,15 @@
   <script>
   // 启动
   window.onload = function () {
-    const list = new List({
-      wrapSelector: '#show'
-    })
-    window.list = list
+    const
+      list = new List({ wrapSelector: '#show' }),
+      $push   = $('button')[0],
+      $submit = $('button')[1],
+      $text   = $('#text'),
+      $search = $('#search'),
+      reset = () => { $text.value = '', $search.value = '' }
+
+
     list.init([
       'sddsdsd',
       'asdasddsf',
@@ -37,18 +43,17 @@
       '34131fsddfwedad'
     ])
 
-    $('button')[0].addEventListener('click', () => {
-        const $text = $('#text'), $search = $('#search')
-
+    $push.addEventListener('click', () => {
         list.push($text.value)
-        $text.value = ''
-        $search.value = ''
+        reset()
     })
 
-    $('#search').addEventListener('input', ev => {
-      const val = ev.target.value
+    $submit.addEventListener('click', ev => {
+      list.init()
+      const val = $search.value
 
       list.eachAllBTextEqualInput(val)
+      reset()
     })
   }
   </script>

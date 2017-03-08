@@ -40,7 +40,7 @@ h4 {
   font-weight: 300;
 }
 
-#text { margin-right: 15px; }
+#text, #search { margin-right: 15px; }
 .btn_group { display: inline-block; margin-right: 15px; }
 
 #show {
@@ -55,13 +55,12 @@ h4 {
 #show li {
   cursor: pointer;
   padding: 5px 10px;
+  letter-spacing: 1px;
 }
 #show li b {
   font-weight: 300;
-  margin-right: 1px;
-}
-#show li b.active {
   color: #e67e22;
 }
+
 #show li:hover { background: #95a5a6; color: #fff; }
 #show li.active { background: #2980b9; }
