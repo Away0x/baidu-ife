@@ -26,5 +26,9 @@
   - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/bingbing/lesson_4/index.html)
 
 - 任务五：基础JavaScript练习（二）
-  - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/bingbing/lesson_5)
+  - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/bingbing/lesson_5/index.html)
   - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/bingbing/lesson_5/index.html)
+
+- 任务六：基础JavaScript练习（三）
+  - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/bingbing/lesson_6/index.html)
+  - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/bingbing/lesson_6/index.html)

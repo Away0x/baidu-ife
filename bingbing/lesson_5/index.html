@@ -59,10 +59,10 @@
     const liQueue = new Queue({
         wrapSelector: '#show',
         maxLength: 60,
-        maxLengthCb (maxNum) {
+        maxLengthCb (maxNum) { // 达到队列最大长度时的回调
           alert(`已达最大长度${maxNum},不能再添加了！`)
         },
-        sortCb (type, list, a, b) {
+        sortCb (type, list, a, b) { // 排序中每个阶段的回调 (将步骤存入全局 step)
           const
             copyList = copyArray(list), // 需copy下，否则会得到排好序的数组（引用类型）
             text     =  type ? `${a} 比 ${b}大，交换位置` : `${a} 比 ${b}小，交换位置`
@@ -70,7 +70,7 @@
           console.log(text)
           step.push({text, list: copyList, change: [a, b]})
         },
-        sortEndCb (endList) {
+        sortEndCb (endList) { // 排序结束时的回调 (排序动画)
           if (step.length === 0) return
           let count = 0
           const timer = setInterval(() => {

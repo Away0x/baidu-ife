@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-6</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="controll">
+    <!-- <h4>由于排序动画暂有bug,所以不建议输入已有的数字</h4> -->
+    <div class="btn_group">
+      <label for="text">输入:</label>
+      <input type="text" id="text">
+      <button>提交</button>
+    </div>
+    <div class="btn_group">
+      <label for="search">搜索:</label>
+      <input type="text" id="search" placeholder="目前只能搜索单个字符">
+    </div>
+  </div>
+
+  <ul id="show"></ul>
+
+  <script src="utils.js"></script>
+  <script src="list.js"></script>
+  <script>
+  // 启动
+  window.onload = function () {
+    const list = new List({
+      wrapSelector: '#show'
+    })
+    window.list = list
+    list.init([
+      'sddsdsd',
+      'asdasddsf',
+      '4352341234123',
+      '34131fsddfwedad'
+    ])
+
+    $('button')[0].addEventListener('click', () => {
+        const $text = $('#text'), $search = $('#search')
+
+        list.push($text.value)
+        $text.value = ''
+        $search.value = ''
+    })
+
+    $('#search').addEventListener('input', ev => {
+      const val = ev.target.value
+
+      list.eachAllBTextEqualInput(val)
+    })
+  }
+  </script>
+
+</body>
+</html>
