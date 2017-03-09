@@ -32,3 +32,24 @@
 - 任务六：基础JavaScript练习（三）
   - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/bingbing/lesson_6/index.html)
   - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/bingbing/lesson_6/index.html)
+
+***
+
+## 耀耀
+- 任务一：表单（一）单个表单项的检验
+  - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_1/index.html)
+  - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_1/index.html)
+
+***
+
+## 商业平台学院
+
+***
+
+## ECharts & WebVR 学院
+
+***
+
+## 百度糯米前端技术学院
+
+***

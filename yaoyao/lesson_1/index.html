@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <form>
+    <div class="form_group">
+      <label for="">名称：</label>
+      <input type="text" id="text">
+      <button id="btn" type="button">验证</button>
+      <button id="clean" type="button">清空</button>
+      <p class="message">必填，长度为4~16个字符</p>
+    </div>
+  </form>
+
+  <p id="show">当前字符长度为 0</p>
+
+  <script>
+    const
+      // dom 元素
+      $ =  selector => document.querySelector(selector),
+      $btn  = $('#btn'),  $form    = $('.form_group'), $text  = $('#text'),
+      $show = $('#show'), $message = $('.message'),    $clean = $('#clean'),
+      // 根据 status 更改 className ( true(success) false(error) )
+      classChange = status => {
+        $form.classList[status ? 'remove' : 'add']('error')
+        $form.classList[status ? 'add' : 'remove']('success')
+      },
+      // 获取字符长度 (中文长度为 2)
+      getCharLength = str =>
+        String(str).trim().split('')
+        .map(s => s.charCodeAt())
+        .map(n => (n < 0 || n > 255) ? 'aa' : 'a') // 中文占两字符, 其他一字符
+        .join('')
+        .length,
+      // 验证器
+      validator = (str, min=4, max=16) => {
+        const len = getCharLength(str) // 字符长度(验证目标)
+
+        if (len === 0)
+          return { status: false, message: '姓名不能为空'}
+
+        return (len < min || len > max)
+          ? { status: false, message: `请输入合法的姓名: (名称长度应在4~16个字符之间)` }
+          : { status: true,  message: '姓名格式正确' }
+      }
+
+    // 启动
+    window.onload = function () {
+      // 验证事件
+      $btn.addEventListener('click', () => {
+        const
+          val = $text.value,
+          validate = validator(val) // 获取验证结果
+
+        // 根据验证结果设置表单的状态
+        classChange(validate.status)
+        $message.textContent = validate.message
+      })
+      // 显示当前字符长度
+      $text.addEventListener('input', ev => {
+        const val = ev.target.value
+
+        $show.textContent = `当前字符长度为 ${getCharLength(val)}`
+      })
+      // 清空 重置表单状态
+      $clean.addEventListener('click', () => {
+        $text.value = ''
+        $message.textContent = '必填，长度为4~16个字符'
+        $show.textContent = '当前字符长度为 0'
+        $form.classList.remove('error')
+        $form.classList.remove('success')
+      })
+    }
+  </script>
+</body>
+</html>
