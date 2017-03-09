@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <form>
+
+    <div class="form_group name">
+      <label for="name">名称</label>
+      <input type="text" name="name" id="name">
+      <p class="message">必填，长度为4~16个字符</p>
+    </div>
+
+    <div class="form_group password">
+      <label for="name">密码</label>
+      <input type="password" name="password" id="password">
+      <p class="message">必填，长度为6~16个字符</p>
+    </div>
+
+    <div class="form_group password_re">
+      <label for="name">密码确认</label>
+      <input type="password" name="password_re" id="password_re">
+      <p class="message">两次输入相同密码</p>
+    </div>
+
+    <div class="form_group email">
+      <label for="name">邮箱</label>
+      <input type="email" name="email" id="email">
+      <p class="message"></p>
+    </div>
+
+    <div class="form_group tel">
+      <label for="name">手机</label>
+      <input type="tel" name="tel" id="tel">
+      <p class="message"></p>
+    </div>
+
+    <div class="form_group btn_group">
+      <button id="submit" type="button">验证</button>
+      <button id="reset"  type="button">重置</button>
+    </div>
+  </form>
+
+  <script src="validators.js"></script>
+  <script src="validator.js"></script>
+  <script>
+    // 表单检查器的配置
+    const validatorConfig = {
+      // 失败时回调
+      error ($target) {
+        $target.parentElement.classList.remove('success')
+        $target.parentElement.classList.add('error')
+      },
+      // 成功时回调
+      success ($target) {
+        $target.parentElement.classList.remove('error')
+        $target.parentElement.classList.add('success')
+      },
+      // 重置时回调
+      reset (allTarget) { // 参数为每个检查表单的 dom  对象
+        allTarget.forEach(selector => {
+          $(selector).parentElement.classList.remove('error', 'success')
+        })
+      }
+    }
+    // 检查目标的配置 (target必须为 input)
+    const targetConfig = [
+        // 名称表单校验
+        {
+          target:        '#name',                // 检查的 input
+          message: {
+            target:      '.name p',              // 检查结果信息展示的地方
+            placeholder: '必填，长度为4~16个字符', // 默认信息
+            success:     '名称可用'               // 成功时显示
+          },
+          // 执行的检查器
+          validators: [
+            // name: 验证器的名字, args: 验证器的配置参数
+            { name: 'required',  args: { message: '名称不能为空' } },
+            { name: 'minAndMax', args: { min: 4, max: 16, message: '长度需在 4 ~ 16 之间' } }
+          ]
+        },
+        // 密码表单校验
+        {
+          target:     '#password',
+          message:    { target: '.password p', placeholder: '必填，长度为6~16个字符', success: '密码可用' },
+          validators: [
+            { name: 'required',  args: { message: '密码不能为空' } },
+            { name: 'minAndMax', args: { min: 6, max: 16, message: '长度需在 6 ~ 16 之间' } }
+          ]
+        },
+        // 确认密码表单校验
+        {
+          target:     '#password_re',
+          message:    { target: '.password_re p', placeholder: '两次输入相同密码', success: '两次输入密码相同' },
+          validators: [
+            { name: 'required',        args: { message: '密码不能为空' } },
+            { name: 'minAndMax',       args: { min: 6, max: 16, message: '长度需在 6 ~ 16 之间' } },
+            { name: 'equalOtherValue', args: { otherForm: '#password', message: '两次输入的密码不一致' } },
+          ]
+        },
+        // 邮箱表单校验
+        {
+          target:     '#email',
+          message:    { target: '.email p', success: '邮箱格式正确' },
+          // 验证器列表中无 required, 说明不是必填项，只有在输入内容时才会进行检验
+          validators: [{ name: 'email',     args: { message: '邮箱格式错误' } }]
+        },
+        // 手机表单校验
+        {
+          target:     '#tel',
+          message:    { target: '.tel p', success: '手机格式正确' },
+          validators: [{ name: 'tel',     args: { message: '手机格式错误' } }]
+        }
+      ]
+
+    // 启动
+    window.onload = function () {
+      const
+        $ = selector => document.querySelector(selector),
+        $submit = $('#submit'), $reset = $('#reset'), $inputs = document.querySelectorAll('.form_group input'),
+        validator = new Validator({ validatorConfig, targetConfig })
+
+      // 单个校验
+      ;[].forEach.call($inputs, $input => {
+        $input.addEventListener('blur', ev => validator.run(ev.target.id))
+      })
+      // 确定 (需验证表单)
+      $submit.addEventListener('click', () => validator.runAll())
+      // 重置表单
+      $reset.addEventListener('click', () => validator.reset())
+    }
+  </script>
+</body>
+</html>

@@ -35,10 +35,14 @@
 
 ***
 
-## 耀耀
+## 耀耀学院
 - 任务一：表单（一）单个表单项的检验
   - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_1/index.html)
   - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_1/index.html)
+
+- 任务二：表单（二）多个表单项的动态校验
+  - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_2/index.html)
+  - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_2/index.html)
 
 ***
 
