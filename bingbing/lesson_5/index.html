@@ -35,10 +35,10 @@
   window.onload = function () {
     window.step = [] // 排序的步骤
     const
-      disabledBtn = type => [].forEach.call(document.querySelectorAll('button'), $btn => $btn.disabled = type)
+      disabledBtn = type => [].forEach.call(document.querySelectorAll('button'), $btn => $btn.disabled = type), // 排序时禁用按钮
       $show = $('#show'),
       $step = $('#step'),
-      initStep = $btn => {
+      initStep = $btn => { // 初始排序状态
         disabledBtn(true)
         $step.innerHTML = '<li>排序开始</li>'
         step = []

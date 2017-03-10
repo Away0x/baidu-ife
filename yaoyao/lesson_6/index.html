@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-6</title>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="dialog.css">
+
+  <script src="utils.js"></script>
+  <script src="dialog.js"></script>
+</head>
+<body>
+  <template id="tpl">
+    <iframe src="../lesson_2/index.html" width="550" height="500"></iframe>
+  </template>
+
+  <div class="btn_group">
+    <button type="button" id="d_3s">3s 关闭的弹窗</button>
+    <button type="button" id="simple1">只有一个按钮的弹窗</button>
+    <button type="button" id="simple2">确定关闭有有事件的弹窗</button>
+    <button type="button" id="simple3">特定条件关闭的弹窗</button>
+    <button type="button" id="simple4">复杂配置的 simple 弹窗</button>
+    <button type="button" id="template">模板弹窗</button>
+  </div>
+  <script>
+    /* 弹窗配置 const dialog = new CustomDialog(config={})
+    *  config: [] 中为默认值;  () 为可选值
+    *    - wrapper         : 弹窗容器                              Selector [body]
+    *    - width           : 弹窗宽度                              Number   [300]
+    *    - top             : 弹窗top值                            String   [自适应]
+    *    - hasMask         : 是否有遮罩层                          Boolean  [true]
+    *    - title           : 弹窗标题                              String   [提示]
+    *    - btn             : 弹窗下部按钮                          Number   [2]       (0 1 2)
+    *       为 1 时,只有一个确定按钮; 为 2 时，左为确定按钮，右为取消按钮
+    *    - confirmTitle    : 确定按钮的文字                        String   [是]
+    *    - closeTitle      : 取消按钮的文字                        String   [否]
+    *    - confirmCallback : 点击按钮时的回调                      Function [null]
+    *       该回调可接受一个Boolean参数, true为点了确定按钮，false 为点了取消按钮或关闭按钮
+    *    - type            : 弹窗类型                             String   [simple]  (有 simple 和 template)
+    *    - template        : template类型弹窗时生效,弹窗中的模板    Dom      [null]
+    *    - description     : simple类型弹窗时生效，为弹窗中间的文本 String   [这是一个 simple 弹窗]
+    *
+    *  弹窗实例方法
+    *    - dialog.open()         显示弹窗
+    *    - dialog.close()        关闭弹窗 可接受 一个毫秒 Number,为延迟关闭的时间
+    *    - dialog.openAndClose() 打开并在delay毫秒后关闭
+    */
+    const
+      dialog_3s      = new CustomDialog({ description: '3s 后关闭', btn: 0 }),
+      dialog_simple1 = new CustomDialog({ btn: 1 }),
+      dialog_simple2 = new CustomDialog({ confirmCallback: status => alert(`你点击了${status ? '确定' : '关闭'}`) }),
+      dialog_simple3 = new CustomDialog({ description: '点击body可使我关闭', btn: 0 }),
+      dialog_simple4 = new CustomDialog({
+        confirmTitle: '确定', closeTitle: '取消', title: 'simple3',
+        hasMask: false,       width: 200,        description: '我好小'
+      }),
+      dialog_template = new CustomDialog({
+        title: '模板弹窗', width: 550, top: '20%',
+        type: 'template', template: cElm(document.querySelector('#tpl').innerHTML)
+      })
+
+
+    window.onload = function () {
+      // 3s 关闭的弹窗
+      $('#d_3s').addEventListener('click',    () => dialog_3s.openAndClose(3000))
+      // 只有一个按钮的弹窗
+      $('#simple1').addEventListener('click', () => dialog_simple1.open())
+      // 确定关闭有有事件的弹窗
+      $('#simple2').addEventListener('click', () => dialog_simple2.open())
+      // 特定条件关闭的弹窗
+      $('#simple3').addEventListener('click', ev => {
+        dialog_simple3.open()
+        ev.stopPropagation()
+      })
+      $('body').addEventListener('click', () => dialog_simple3.close())
+      // 复杂配置的 simple 弹窗
+      $('#simple4').addEventListener('click', () => dialog_simple4.open())
+      // 模板弹窗
+      $('#template').addEventListener('click', () => dialog_template.open())
+    }
+
+  </script>
+</body>
+</html>
