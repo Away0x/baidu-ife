@@ -12,8 +12,16 @@
   <script src="dialog.js"></script>
 </head>
 <body>
+  <!-- 模板 -->
   <template id="tpl">
-    <iframe src="../lesson_2/index.html" width="550" height="500"></iframe>
+    <div>
+      <label>请输入北京今天空气质量：<input id="aqi-input" type="text"></label>
+      <button id="button">确认填写</button>
+
+      <div>您输入的值是：<span id="aqi-display">尚无录入</span></div>
+
+
+    </div>
   </template>
 
   <div class="btn_group">
@@ -78,9 +86,18 @@
       // 复杂配置的 simple 弹窗
       $('#simple4').addEventListener('click', () => dialog_simple4.open())
       // 模板弹窗
-      $('#template').addEventListener('click', () => dialog_template.open())
+      $('#template').addEventListener('click', () => {
+        dialog_template.open()
+
+        // 模板中的事件，先生成模板，再绑定事件(如果模板中的dom也是动态生成的,应将事件委托在模板父级或弹窗的模板容器上)
+        $('#button').addEventListener('click', () =>$('#aqi-display').textContent = $('#aqi-input').value.trim())
+      })
     }
 
   </script>
+
+
+
+
 </body>
 </html>

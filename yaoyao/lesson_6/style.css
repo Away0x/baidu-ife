@@ -19,4 +19,5 @@ body {
   box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, .15) inset;
   background: #3498db;
   color: #fff;
+  margin-bottom: 15px;
 }

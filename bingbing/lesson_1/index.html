@@ -11,25 +11,25 @@
 
   <div>您输入的值是：<span id="aqi-display">尚无录入</span></div>
 
-<script type="text/javascript">
+  <script type="text/javascript">
 
-(function() {
-  // 获取元素
-  var
-    $        = selector => document.querySelector(selector),
-    $btn     = $('#button'),
-    $input   = $('#aqi-input'),
-    $display = $('#aqi-display')
+  (function() {
+    // 获取元素
+    var
+      $        = selector => document.querySelector(selector),
+      $btn     = $('#button'),
+      $input   = $('#aqi-input'),
+      $display = $('#aqi-display')
 
-  // 绑定事件
-  $btn.addEventListener('click', function () {
-    var text = $input.value.trim()
+    // 绑定事件
+    $btn.addEventListener('click', function () {
+      var text = $input.value.trim()
 
-    $display.textContent = text
-  })
+      $display.textContent = text
+    })
 
-})();
+  })();
 
-</script>
+  </script>
 </body>
 </html>
