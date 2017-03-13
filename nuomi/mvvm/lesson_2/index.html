@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-2</title>
+</head>
+<body>
+  <h2>请打开控制台查看</h2>
+  <!-- 实现 -->
+  <script>
+    // 发布订阅模式
+    class PubSub {
+      constructor() {
+        this.handlers = {}
+      }
+      // 订阅事件
+      subscribe (eventName, handler) {
+        if ( ! (eventName in this.handlers))
+          this.handlers[eventName] = [] // 初始化
+
+        this.handlers[eventName].push(handler)
+        return this
+      }
+      // 发布事件
+      publish (eventName, ...args) {
+        if ( ! (this.handlers[eventName] instanceof Array)) return false
+
+        this.handlers[eventName].forEach(fn => fn.call(this, ...args))
+        return this
+      }
+      // 退订事件
+      unsubscribe (eventName) {
+        if ( ! (this.handlers[eventName] instanceof Array)) return false
+
+        delete this.handlers[eventName]
+        return this
+      }
+    }
+
+    // 观察者构造函数
+    class Observer {
+      constructor (data) {
+        this.data   = data
+        this._pubSubMark = 'self_pubsub'
+        this._pubSub = new PubSub()
+        this._walk(data)
+      }
+      // 用于深层次遍历对象的各个属性(要为对象的每一个属性绑定getter和setter)
+      _walk (obj) {
+        let val
+        for (let key in obj) {
+          if (obj.hasOwnProperty(key)) { // 仅仅遍历这个对象本身拥有的属性
+            val = obj[key]
+            // 还没有遍历到最底层，继续 new Observer
+            if (typeof val === 'object') new Observer(val)
+            this._convert(key, val) // 绑定
+          }
+        }
+      }
+      _convert (key, val) {
+        const me = this
+
+        Object.defineProperty(this.data, key, {
+          enumerable: true, configurable: true,
+          get () {
+            console.log(`你访问了 ${key}`)
+            return val
+          },
+          set (newVal) {
+            console.log(`你设置了 ${key}, 新的值为 ${newVal}`)
+            if ((newVal === val) && (typeof newVal !== 'object')) return
+
+            if (typeof newVal === 'object') new Observer(newVal)
+            me._pubSub.publish(`${me._pubSubMark}-${key}`, newVal)
+            val = newVal
+          }
+        })
+      }
+      // 监听
+      $watch (key, callback) {
+        this._pubSub.subscribe(`${this._pubSubMark}-${key}`, data => {
+          callback && callback(data)
+        })
+      }
+    }
+  </script>
+
+  <!-- 效果 -->
+  <script>
+    const app1 = new Observer({
+      name: 'youngwind',
+      age: 25
+    })
+
+    app1.data.name = {
+      lastName: 'liang',
+      firstName: 'shaofeng'
+    }
+
+    // 这里还需要输出 '你访问了 lastName'
+    app1.data.name.lastName
+    // 这里还需要输出 '你设置了firstName, 新的值为 lalala'
+    app1.data.name.firstName = 'lalala'
+
+    // 监听
+    app1.$watch('age', newAge => {
+      console.log(`$watch => 我的年纪变了，现在已经是：${newAge}岁了`)
+    });
+
+    app1.data.age = 100; // 输出：'我的年纪变了，现在已经是100岁了'
+  </script>
+</body>
+</html>

@@ -97,7 +97,7 @@
   - 动态数据绑定（一）
     - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/nuomi/mvvm/lesson_1/index.html)
     - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/nuomi/mvvm/lesson_1/index.html)
-  - 动态数据绑定（二）(未完成)
+  - 动态数据绑定（二）
     - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/nuomi/mvvm/lesson_2/index.html)
     - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/nuomi/mvvm/lesson_2/index.html)
   - 动态数据绑定（三）(未完成)
