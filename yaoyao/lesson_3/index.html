@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-3</title>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="select.css">
+
+  <script src="utils.js"></script>
+  <script src="select.js"></script>
+
+  <style>
+    .controll { margin-bottom: 20px;}
+    .m-form-select { margin-right: 10px; }
+    label { margin-right: 15px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <div class="controll">
+    <input id="radio1" type="radio" name="switch" value="1" checked>
+    <label for="radio1">在校生</label>
+    <input id="radio2" type="radio" name="switch" value="2">
+    <label for="radio2">非在校生</label>
+  </div>
+
+  <div class="select_wrap">
+    <label>学校 : </label>
+    <span id="select1"></span>
+    <span id="select2"></span>
+  </div>
+
+  <div class="text_wrap" style="display:none;">
+    <label>就业单位 : </label>
+    <input type="text">
+  </div>
+
+  <script>
+    const data = [
+      {
+        address: '北京', id: '0',
+        school: [
+          { name: '北京大学1', id: '0_0' },
+          { name: '北京大学2', id: '0_1' },
+          { name: '北京大学3', id: '0_2' },
+          { name: '北京大学4', id: '0_3' },
+          { name: '北京大学5', id: '0_4' },
+          { name: '北京大学6', id: '0_5' },
+          { name: '北京大学7', id: '0_6' },
+          { name: '北京大学8', id: '0_7' }
+        ]
+      },
+      {
+        address: '上海', id: '1',
+        school: [
+          { name: '上海1_0', id: '1_0' },
+          { name: '上海1_1', id: '1_1' },
+          { name: '上海1_2', id: '1_2' },
+          { name: '上海1_3', id: '1_3' }
+        ]
+      },
+      {
+        address: '福建', id: '2',
+        school: [
+          { name: '福建2_0', id: '2_0' },
+          { name: '福建2_1', id: '2_1' },
+          { name: '福建2_2', id: '2_2' },
+          { name: '福建2_3', id: '2_3' }
+        ]
+      }
+    ],
+    createSelect = (selector, data, callback, otherSettings) => {
+      new Select(selector, Object.assign({
+        listData: data, width: 150, text: '请选择',
+        onSelect(id, text) {
+          callback && callback(id, text)
+        }
+      }, otherSettings))
+    }
+
+    window.onload = function () {
+      createSelect('#select2', [], null, {text: '请先选择城市'})
+
+      const address = data.map(item => ({ text: item.address, id: item.id }))
+
+      createSelect('#select1', address, (id, text) => {
+        const school = data
+          .filter(item => item.id === id)[0].school
+          .map(item => ({ text: item.name, id: item.id }))
+
+        createSelect('#select2', school, (id2, text2) => {
+          console.log(`text: ${text2}, id: ${id2}`)
+        })
+      })
+      // 切换逻辑
+      const
+        $select = document.querySelector('.select_wrap'),
+        $text   = document.querySelector('.text_wrap'),
+        $switch = document.querySelectorAll('[name=switch]')
+
+      ;[].forEach.call($switch, $el => {
+        $el.addEventListener('change', ev => {
+          const val = ev.target.value
+
+          if (val === '1') {
+            $select.style.display = 'block'
+            $text.style.display   = 'none'
+          }
+          else {
+            $select.style.display = 'none'
+            $text.style.display   = 'block'
+          }
+        })
+      })
+    }
+
+
+  </script>
+</body>
+</html>

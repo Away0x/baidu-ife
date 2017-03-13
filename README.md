@@ -44,7 +44,7 @@
   - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_2/index.html)
   - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_2/index.html)
 
-- 任务三：表单（三）联动 (未完成)
+- 任务三：表单（三）联动
   - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_3/index.html)
   - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_3/index.html)
 
