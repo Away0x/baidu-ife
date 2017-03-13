@@ -70,3 +70,14 @@ body {
   font-size: 14px;
   color: #2c3e50;
 }
+
+
+@font-face {
+	font-family:"iconFont";
+	src:url('fonts/iconFont.eot');
+	src:url('fonts/iconFont.eot?#iefix') format('embedded-opentype'),
+	url('fonts/iconFont.svg#iconFont') format('svg'),
+	url('fonts/iconFont.woff') format('woff'),
+	url('fonts/iconFont.ttf') format('truetype');
+	font-weight:normal;font-style:normal
+}

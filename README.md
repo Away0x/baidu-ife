@@ -68,7 +68,7 @@
 
 ## 百度糯米前端技术学院
 - 组件系列
-  - 自定义checkbox， radio样式 (未完成)
+  - 自定义checkbox， radio样式
     - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/nuomi/components/radio_checkbox/index.html)
     - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/nuomi/components/radio_checkbox/index.html)
   - 自定义网页右键菜单 (未完成)

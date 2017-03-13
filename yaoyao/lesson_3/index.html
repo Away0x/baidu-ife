@@ -69,6 +69,7 @@
         ]
       }
     ],
+    // 生成select组件的方法
     createSelect = (selector, data, callback, otherSettings) => {
       new Select(selector, Object.assign({
         listData: data, width: 150, text: '请选择',
@@ -79,15 +80,15 @@
     }
 
     window.onload = function () {
-      createSelect('#select2', [], null, {text: '请先选择城市'})
+      createSelect('#select2', [], null, {text: '请先选择城市'}) // select2默认无数据
 
-      const address = data.map(item => ({ text: item.address, id: item.id }))
-
+      const address = data.map(item => ({ text: item.address, id: item.id })) // select1 的数据
+      // 生成 select1
       createSelect('#select1', address, (id, text) => {
         const school = data
           .filter(item => item.id === id)[0].school
           .map(item => ({ text: item.name, id: item.id }))
-
+        // 根据select1的选择，重新生成select2
         createSelect('#select2', school, (id2, text2) => {
           console.log(`text: ${text2}, id: ${id2}`)
         })
@@ -97,11 +98,11 @@
         $select = document.querySelector('.select_wrap'),
         $text   = document.querySelector('.text_wrap'),
         $switch = document.querySelectorAll('[name=switch]')
-
+      
       ;[].forEach.call($switch, $el => {
         $el.addEventListener('change', ev => {
           const val = ev.target.value
-
+          // 根据 radio 的值来切换对应的组件(暂不重置组件状态)
           if (val === '1') {
             $select.style.display = 'block'
             $text.style.display   = 'none'
