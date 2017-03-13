@@ -21,6 +21,10 @@
       <button id="sort_b_p">冒泡(正)</button>
       <button id="sort_b_r">冒泡(逆)</button>
     </div>
+    <!-- <div class="btn_group">
+      <button id="sort_s_p">选择(正)</button>
+      <button id="sort_s_r">选择(逆)</button>
+    </div> -->
   </div>
 
   <ul id="show"></ul>
@@ -89,7 +93,7 @@
               setActiveClass()
               disabledBtn(false)
             }
-          }, 1000)
+          }, 500)
         }
       })
 
@@ -117,20 +121,36 @@
       if ( ! liQueue.pop())
         alert('没有可删除的元素了')
     }
-    // sort p
-    function bindSortPEvent () {
+    // 冒泡
+    // bubbleSort p
+    function bindBubbleSortPEvent () {
       console.log('冒泡排序(正)开始')
       initStep(this)
-      liQueue.sort(true)
+      liQueue.sort(mode='bubble', type=true)
       console.log('冒泡排序(正)结束')
     }
-    // sort r
-    function bindSortREvent () {
+    // bubbleSort r
+    function bindBubbleSortREvent () {
       console.log('冒泡排序(逆)开始')
       initStep(this)
-      liQueue.sort(false)
+      liQueue.sort(mode='bubble', type=false)
       console.log('冒泡排序(逆)结束')
     }
+    // // 选择
+    // // selectionSort p
+    // function bindselectionSortPEvent () {
+    //   console.log('选择排序(正)开始')
+    //   initStep(this)
+    //   liQueue.sort(mode='select', type=true)
+    //   console.log('选择排序(正)结束')
+    // }
+    // // selectionSort r
+    // function bindselectionSortREvent () {
+    //   console.log('选择排序(逆)开始')
+    //   initStep(this)
+    //   liQueue.sort(mode='select', type=false)
+    //   console.log('选择排序(逆)结束')
+    // }
 
     function bindLiLeaveEvent (ev) {
       if ( ! ev.target || ! (ev.target.nodeName === 'LI')) return
@@ -142,9 +162,13 @@
     bindClick('#right_enter', bindRightEnterEvent)
     bindClick('#left_leave',  bindLeftLeaveEvent)
     bindClick('#right_leave', bindRightLeaveEvent)
-    bindClick('#sort_b_p',    bindSortPEvent)
-    bindClick('#sort_b_r',    bindSortREvent)
     bindClick('#show',        bindLiLeaveEvent)
+    // 冒泡
+    bindClick('#sort_b_p',    bindBubbleSortPEvent)
+    bindClick('#sort_b_r',    bindBubbleSortREvent)
+    // 选择
+    // bindClick('#sort_s_p',    bindselectionSortPEvent)
+    // bindClick('#sort_s_r',    bindselectionSortREvent)
   }
   </script>
 

@@ -52,7 +52,7 @@
   - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_6/index.html)
   - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_6/index.html)
 
-- 任务七：UI组件之排序表格 (未完成)
+- 任务七：UI组件之排序表格
   - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_7/index.html)
   - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/yaoyao/lesson_7/index.html)
 
@@ -94,7 +94,7 @@
     - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/nuomi/components/tree/index.html)
 
 - 数据绑定系列
-  - 动态数据绑定（一）(未完成)
+  - 动态数据绑定（一）
     - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/nuomi/mvvm/lesson_1/index.html)
     - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/nuomi/mvvm/lesson_1/index.html)
   - 动态数据绑定（二）(未完成)
@@ -142,6 +142,5 @@
   - 网页抓取分析服务系列之五（并发控制）(未完成)
     - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/nuomi/crawler/lesson_5/index.html)
     - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/nuomi/crawler/lesson_5/index.html)
-
 
 ***

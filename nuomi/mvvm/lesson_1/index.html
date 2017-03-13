@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-7</title>
+</head>
+<body>
+  <!-- 实现 -->
+  <script>
+    // 观察者构造函数
+    class Observer {
+      constructor (data) {
+        this.data = data
+        this.walk(data)
+      }
+      // 用于深层次遍历对象的各个属性(要为对象的每一个属性绑定getter和setter)
+      walk (obj) {
+        let val
+        for (let key in obj) {
+          if (obj.hasOwnProperty(key)) { // 仅仅遍历这个对象本身拥有的属性
+            val = obj[key]
+            // 还没有遍历到最底层，继续 new Observer
+            if (typeof val === 'object') new Observer(val)
+            this.convert(key, val) // 绑定
+          }
+        }
+      }
+
+      convert (key, val) {
+        Object.defineProperty(this.data, key, {
+          enumerable: true, configurable: true,
+          get () {
+            console.log(`你访问了 ${key}`)
+            return val
+          },
+          set (newVal) {
+            console.log(`你设置了 ${key}, 新的值为 ${newVal}`)
+            if (newVal === val) return
+            val = newVal
+          }
+        })
+      }
+    }
+  </script>
+
+  <!-- 效果 -->
+  <script>
+    const app1 = new Observer({
+      name: 'youngwind',
+      age: 25
+    })
+
+    const app2 = new Observer({
+      university: 'bupt',
+      major: 'computer'
+    })
+
+    // 要实现的结果如下：
+    app1.data.name              // 你访问了 name
+    app1.data.age = 100         // 你设置了 age，新的值为 100
+    app2.data.university        // 你访问了 university
+    app2.data.major = 'science' // 你设置了 major，新的值为 science
+  </script>
+</body>
+</html>

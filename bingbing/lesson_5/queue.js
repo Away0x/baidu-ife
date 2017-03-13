@@ -64,12 +64,23 @@ class Queue {
     this._arr.splice(parseInt(index), 1)
     this.init()
   }
-  // 排序 : type(true为正序，false为逆序)
-  sort (type) {
-    this._arr = bubbleSort(this._arr, type,
-      (list, a, b) => this._sortCb(type, list, a, b), // 排序中每个步骤的回调(可获取当前排序的状态)
-      (list)       => this._sortEndCb(list)           // 排序结束时的回调
-    )
+  // 排序 : mode(排序算法，默认为 bubble), type(true为正序，false为逆序)
+  sort (mode='bubble', type) {
+    // 冒泡排序
+    if (mode === 'bubble') { // 用 copyArray 保证不产生副作用
+      this._arr = bubbleSort(copyArray(this._arr), type,
+        (list, a, b) => this._sortCb(type, list, a, b), // 排序中每个步骤的回调(可获取当前排序的状态)
+        (list)       => this._sortEndCb(list)           // 排序结束时的回调
+      )
+    }
+    // 选择排序
+    else if (mode === 'select') {
+      this._arr = selectionSort(copyArray(this._arr), type,
+        (list, a, b) => this._sortCb(type, list, a, b),
+        (list)       => this._sortEndCb(list)
+      )
+    }
+
   }
   // 生成初始队列
   init (arr) {
