@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-3</title>
+</head>
+<body>
+    <h2>请打开控制台查看</h2>
+  <!-- 实现 -->
+  <script src="pubsub.js"></script>
+  <script src="observer.js"></script>
+
+  <!-- 效果 -->
+  <script>
+    const app = new Observer({
+      name: {
+        firstName: 'shaofeng',
+        lastName: 'liang',
+        aaa: {
+          bbb: {
+            xxx:1
+          }
+        }
+      },
+      age: 25
+    })
+
+    app.$watch('name', newName => {
+      console.log('我的姓名发生了变化，可能是姓氏变了，也可能是名字变了。', newName)
+    })
+
+    app.data.age = 67   // 输出：我的姓名发生了变化，可能是姓氏变了，也可能是名字变了
+    app.data.name.firstName = 'hahaha'   // 输出：我的姓名发生了变化，可能是姓氏变了，也可能是名字变了
+    app.data.name.lastName  = 'blablabla' // 输出：我的姓名发生了变化，可能是姓氏变了，也可能是名字变了
+    app.data.name.aaa.bbb.xxx  = 'fdfdf' // 输出：我的姓名发生了变化，可能是姓氏变了，也可能是名字变了
+  </script>
+</body>
+</html>

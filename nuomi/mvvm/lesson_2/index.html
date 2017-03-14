@@ -63,11 +63,11 @@
         Object.defineProperty(this.data, key, {
           enumerable: true, configurable: true,
           get () {
-            console.log(`你访问了 ${key}`)
+            console.log(`你访问了 `, key)
             return val
           },
           set (newVal) {
-            console.log(`你设置了 ${key}, 新的值为 ${newVal}`)
+            console.log(`你设置了 ${key}, 新的值为`, newVal)
             if ((newVal === val) && (typeof newVal !== 'object')) return
 
             if (typeof newVal === 'object') new Observer(newVal)
@@ -87,27 +87,27 @@
 
   <!-- 效果 -->
   <script>
-    const app1 = new Observer({
+    const app = new Observer({
       name: 'youngwind',
       age: 25
     })
 
-    app1.data.name = {
+    app.data.name = {
       lastName: 'liang',
       firstName: 'shaofeng'
     }
 
     // 这里还需要输出 '你访问了 lastName'
-    app1.data.name.lastName
+    app.data.name.lastName
     // 这里还需要输出 '你设置了firstName, 新的值为 lalala'
-    app1.data.name.firstName = 'lalala'
+    app.data.name.firstName = 'lalala'
 
     // 监听
-    app1.$watch('age', newAge => {
+    app.$watch('age', newAge => {
       console.log(`$watch => 我的年纪变了，现在已经是：${newAge}岁了`)
     });
 
-    app1.data.age = 100; // 输出：'我的年纪变了，现在已经是100岁了'
+    app.data.age = 100; // 输出：'我的年纪变了，现在已经是100岁了'
   </script>
 </body>
 </html>
