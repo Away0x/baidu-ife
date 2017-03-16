@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-4</title>
+  <style>
+    body {
+      position: relative;
+      min-height: 500px;
+      border: 1px solid #ccc;
+    }
+
+    .inner {
+      position: absolute;
+      width: 400px;
+      height: 200px;
+      background: #ccc;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .inner>div {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #fc0;
+    }
+
+    .inner .c1 {
+      top: -50px;
+      left: -50px;
+    }
+
+    .inner .c2 {
+      bottom: -50px;
+      right: -50px;
+    }
+  </style>
+</head>
+<body>
+    <div class="inner">
+      <div class="c1"></div>
+      <div class="c2"></div>
+    </div>
+</body>
+</html>
