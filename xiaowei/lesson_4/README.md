@@ -214,3 +214,7 @@
 - 缺点: 除了兼容性还有其他缺点么？
 
 ***
+
+[demo预览](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/xiaowei/lesson_4/demo.html)
+[demo代码](https://github.com/Away0x/baidu_fe/blob/master/xiaowei/lesson_4/demo.html)
+[笔记](https://github.com/Away0x/baidu_fe/tree/master/xiaowei/lesson_4)
