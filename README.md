@@ -6,6 +6,11 @@
   - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/xiaowei/lesson_1/index.html)
   - [笔记地址](https://github.com/Away0x/baidu_fe/tree/master/xiaowei/lesson_1)
 
+- 任务四：定位和居中问题
+  - [代码地址](https://github.com/Away0x/baidu_fe/blob/master/xiaowei/lesson_4/index.html)
+  - [预览地址](http://htmlpreview.github.io/?https://github.com/Away0x/baidu_fe/blob/master/xiaowei/lesson_4/index.html)
+  - [笔记地址](https://github.com/Away0x/baidu_fe/tree/master/xiaowei/lesson_4)
+
 ***
 
 ## 斌斌学院
