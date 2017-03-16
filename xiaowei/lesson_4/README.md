@@ -169,7 +169,7 @@
 ***
 
 ## box flexbox
-### box 1
+### 1. box 1
 ```html
 <div class="box_p1">
   <div class="box_c1"> </div>
@@ -199,9 +199,9 @@
 ```
 ```css
 .box_p2 {
-    display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     width: 200px;
     height: 200px;
