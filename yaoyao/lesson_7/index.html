@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>lesson-7</title>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="table.css">
+</head>
+<body>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <thead>
+      <tr height="30" valign="middle">
+        <td width="20%" class="name"><em>姓名</em></td>
+        <td width="20%" data-type="chinese" class="isThis"><em>语文</em><i></i></td>
+        <td width="20%" data-type="math"><em>数学</em><i></i></td>
+        <td width="20%" data-type="english"><em>英语</em><i></i></td>
+        <td width="20%" data-type="total"><em>总分</em><i></i></td>
+      </tr>
+    </thead>
+    <tbody><!-- 填充 --></tbody>
+  </table>
+
+  <script>
+    class Table {
+      constructor (seletor, data) {
+        this.$wrap = document.querySelector(seletor)
+        this.data  = data
+      }
+      // 绘制 td
+      _drawTr (trData) {
+        return (`
+          <tr height="30" valign="middle" data-id="${trData.id}">
+            <td>${trData.name}</td>
+            <td>${trData.chinese}</td>
+            <td>${trData.math}</td>
+            <td>${trData.english}</td>
+            <td>${trData.total}</td>
+          </tr>
+        `)
+      }
+      // 绘制 table
+      _drawTable () { return this.data.map(this._drawTr).join('') }
+      // 按类型排序
+      sort (type) {
+        this.data = this.data.sort((a, b) => a[type] - b[type])
+        this.init()
+      }
+      // 挂载
+      init () { this.$wrap.innerHTML = this._drawTable() }
+    }
+
+    const data = [
+      { id: 0, name: '张三', chinese: 20, math: 30, english: 40, total: 90 },
+      { id: 1, name: '李四', chinese: 12, math: 23, english: 78, total: 113 },
+      { id: 2, name: '王五', chinese: 67, math: 13, english: 34, total: 114 },
+      { id: 3, name: '苟六', chinese: 34, math: 76, english: 23, total: 133 },
+      { id: 4, name: '胡七', chinese: 90, math: 54, english: 99, total: 243 }
+    ]
+
+    // 启动
+    window.onload = function () {
+      const
+        table = new Table('tbody', data),
+        $     = seletor => document.querySelector(seletor),
+        $_all = seletor => document.querySelectorAll(seletor)
+
+      // 初始化表格
+      table.init()
+      // 事件
+      $('thead').addEventListener('click', tdEvent)
+
+      function tdEvent (ev) {
+        let $target = ev.target, $parent = $target.parentNode, $this = null
+
+        if ($target && ($target.nodeName === 'TD' || $parent.nodeName === 'TD'))
+          $this = ($parent.nodeName === 'TD') ? $parent : $target
+        if ( ! $this) return
+        // $this 应为表头排除掉姓名的td
+        if ($this.classList.contains('name')) return
+
+        // 类名切换
+        ;[].forEach.call($_all('thead td'), $td => $td.classList.remove('isThis'))
+        $this.classList.add('isThis')
+        // 类型排序
+        table.sort( $this.getAttribute('data-type') )
+      }
+    }
+  </script>
+</body>
+</html>
