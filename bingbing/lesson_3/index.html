@@ -75,9 +75,7 @@ function render (data) {
 }
 
 function btnHandle() {
-  var aqiData = getData()
-  aqiData = sortAqiData(aqiData)
-  render(aqiData)
+  render(sortAqiData(getData()))
 }
 
 function init () {
